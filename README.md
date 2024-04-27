@@ -112,3 +112,5 @@ You want use Postman to test the API in local machine, you need to follow the st
 
 - `GET /tags`
 - `GET /tags/:tag_name`
+
+<img src="/demo/images/ERDiagram.png"/>
