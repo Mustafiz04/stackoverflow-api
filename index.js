@@ -46,6 +46,16 @@ app.use(express.urlencoded({ extended: true }));
 // }
 
 // all the api routers
+app.get('/', (req, res) => {
+  res.send({
+    status: 200,
+    success: true,
+    message: 'Welcome to the stackoverflow API',
+    owner: 'Mustafiz Kaifee',
+    github: 'https://github.com/Mustafiz04',
+    website: 'https://www.mustafizkaifee.in',
+  });
+});
 app.use('/api', index);
 
 // index setup
