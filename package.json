@@ -8,9 +8,6 @@
     "server": "node index",
     "lint-check": "eslint -c .eslintrc.json . --ext .js"
   },
-  "engines": {
-    "node": "20.x"
-  },
   "author": "Mustafiz Kaifee",
   "license": "MIT",
   "dependencies": {
