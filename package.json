@@ -4,11 +4,14 @@
   "description": "StackOverflow clone with it's main functionalities",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index",
+    "start": "node index.js",
     "server": "node index",
     "lint-check": "eslint -c .eslintrc.json . --ext .js"
   },
-  "author": "Mayank Aggarwal",
+  "engines": {
+    "node": "14.x"
+  },
+  "author": "Mustafiz Kaifee",
   "license": "MIT",
   "dependencies": {
     "axios": "^0.21.1",
