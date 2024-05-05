@@ -9,7 +9,7 @@
     "lint-check": "eslint -c .eslintrc.json . --ext .js"
   },
   "engines": {
-    "node": "14.x"
+    "node": "20.x"
   },
   "author": "Mustafiz Kaifee",
   "license": "MIT",
