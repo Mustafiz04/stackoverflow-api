@@ -10,6 +10,7 @@ const debug = require('debug')('backend:server');
 
 const index = require('./src/routers/index');
 const portUtils = require('./src/config/port');
+const sequelize = require('./src/config/db.config');
 
 const app = express();
 
@@ -58,6 +59,17 @@ app.get('/', (req, res) => {
 });
 app.use('/api', index);
 
+async function syncDatabase() {
+  return sequelize.sync();
+}
+
+syncDatabase().then(() => {
+  console.log('DATABASE IS CONNECTED.');
+}).catch((error) => {
+  console.log(error);
+  process.exit(1);
+});
+
 // index setup
 const server = http.createServer(app);
 
@@ -73,3 +85,5 @@ const onListening = () => {
 server.listen(PORT);
 server.on('error', portUtils.onError);
 server.on('listening', onListening);
+
+module.exports = app;

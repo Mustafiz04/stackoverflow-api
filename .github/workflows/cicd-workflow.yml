@@ -1,0 +1,51 @@
+name: CICD pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Login to Docker Hub
+        run: docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
+
+      - name: Build docker image
+        run: docker build -t mustafiz04/stackoverflow-api .
+    
+      - name: Publish image to docker hub
+        run: docker push mustafiz04/stackoverflow-api:latest
+
+#   deploy:
+#     needs: build
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@v2
+
+#       - name: Set up AWS credentials
+#         uses: aws-actions/configure-aws-credentials@v1
+#         with:
+#           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#           aws-region: us-west-2
+
+#       - name: Deploy to EC2
+#         run: |
+#           aws ec2 create-tags --resources $EC2_INSTANCE_ID --tags Key=Name,Value=stackoverflow-api
+#           aws ec2 create-tags --resources $ELB_NAME --tags Key=Name,Value=stackoverflow-api-elb
+#           ansible-playbook -i $EC2_INSTANCE_ID, --private-key $SSH_KEY_PATH --extra-vars "app_name=stackoverflow-api image_tag=latest" ./ansible/deploy.yml
+
+#       - name: Run Ansible playbook to update load balancer
+#         run: ansible-playbook --private-key $SSH_KEY_PATH --extra-vars "app_name=stackoverflow-api elb_name=$ELB_NAME" ./ansible/update-load-balancer.yml
+
+#       - name: Remove temp SSH key
+#         run: rm $SSH_KEY_PATH
+
+#       - name: Remove temp SSH key from GitHub secrets
+#         run: echo $SSH_KEY | gh secret remove SSH_KEY
